@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Games</title>
+</head>
+<body>
+    <a href="Leaderboard.html#top"> Link to Leaderboards </a>
+    <br>
+    <a href="ReadGames.html#top"> Link to Games </a>
+
+<script>
+
+function Submit()
+{
+var Name = document.getElementById("Name").value;
+var Platform = document.getElementById("Platform").value;
+
+console.log(Name);
+console.log(Platform);
+
+var data = '{"Name":$ {Name}, "Platform":$ {Platform}}';
+
+fetch ("https://lime-faithful-hippo.cyclic.app/api/games",
+{
+    method: "POST",
+    body: data,
+    headers: {"Content-type": "application/json; charset=UTF-8"}
+})
+}
+
+</script>
+
+    <h2 id="top"> Add Games </h2>
+    <form>
+    <h3> Name:
+    <input id="Name" type="text-field">
+    </h3>
+    <br>
+    <h3> Platform:
+        <input id="Platform" type="text-field">
+        </h3>
+    <input type="button" onclick="Submit()" value="Submit">
+</form>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+</head>
+
+<style>
+     table, th, td{
+            border: 1px solid black;
+        }
+</style>
+
+<body>
+    <h2 id="top"> leaderboard</h2>
+
+    <div id="leaderboardTable">
+
+    </div>
+    <script>
+       
+            const queryString = window.location.search;
+            console.log(queryString);
+            const urlParams = new URLSearchParams(queryString);
+            const id = urlParams.get('id')
+            console.log(id);
+           
+            var tableCode = 
+            "<table>\
+            <tr>\
+            <th> Player</th> <th>Score</th> <th>Time</th>\
+            </tr>";
+            window.onload = function(event) {
+            fetch ("https://lime-faithful-hippo.cyclic.app/api/leaderBoard/"+id)
+            .then((response)=> response.json())
+            .then ((data)=> {
+
+            var title = document.getElementById("top");
+            console.log(title.innerHTML);
+
+            title.innerHTML = (data.GameName) +title.innerHTML;
+
+
+            console.log(data.GameName);
+            data.Leaderboard.forEach(currentLeader => {
+                tableCode += `<tr><td> ${currentLeader.Player} </td> <td> ${currentLeader.Score} </td><td> ${currentLeader.Time} </td></tr>`;
+            });
+            
+            console.log(data.Leaderboard);
+        
+
+            tableCode += "</table>";
+            document.getElementById("leaderboardTable").innerHTML = tableCode;
+        })};
+            
+    </script>
+
+    <a href="AddLeaderboard.html#top"><input type="button" value="New Entry"></a>
+</body>
+</html>
